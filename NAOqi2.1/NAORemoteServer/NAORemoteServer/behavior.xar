@@ -15,7 +15,7 @@
             <BehaviorLayer name="behavior_layer1">
                 <BehaviorKeyframe name="keyframe1" index="1">
                     <Diagram>
-                        <Box name="NAO Controller Client (1)" id="1" localization="8" tooltip="version 2.0" x="364" y="232">
+                        <Box name="NAORemoteServer" id="1" localization="8" tooltip="version 1.0" x="364" y="232">
                             <bitmap>media/images/box/box-diagram.png</bitmap>
                             <script language="4">
                                 <content>
@@ -45,8 +45,8 @@ class MyClass(GeneratedClass):
         self.managerProxy = ALProxy("ALBehaviorManager")
         self.tts = ALProxy("ALTextToSpeech")
         self.memory = ALProxy("ALMemory")
-        self.SendPort = 47391
-        self.RecvPort = 47391
+        self.SendPort = 46792
+        self.RecvPort = 46791
         self.any = "0.0.0.0"
         self.isRobotics = 0
         self.isSelected = 0
@@ -65,11 +65,11 @@ class MyClass(GeneratedClass):
         self.startSocket()
         while(self.bstart):
             try:
-                self.msg,(self.addr, self.port) = self.sock.recvfrom( 200 )
+                self.msg,(self.addr, self.port) = self.sock.recvfrom( 400 )
                 try:
                     dic = json.loads(self.msg)
-                    header = str(dic["header"])
-                    if header == "NAOController":
+                    header = str(dic["kjsdfbkj"])
+                    if header == "dsakjhonlkjlk.f,nlk":
                         self.msg_unpack(dic)
                 except Exception as e:
                     self.logger.info("%s..online..json..error.%s",self.msg,e)
@@ -80,7 +80,7 @@ class MyClass(GeneratedClass):
         self.onUnload()
     def startSocket(self):
         anyAddr = "0.0.0.0"
-        MCAST_ADDR = "227.168.123.111"
+        MCAST_ADDR = "226.168.122.123"
         self.sock = socket.socket( socket.AF_INET, socket.SOCK_DGRAM )
         self.sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
         self.sock.bind( (anyAddr,self.RecvPort))
@@ -88,7 +88,7 @@ class MyClass(GeneratedClass):
         self.sock.setsockopt(socket.IPPROTO_IP,socket.IP_ADD_MEMBERSHIP,socket.inet_aton(MCAST_ADDR) + socket.inet_aton(anyAddr))
     def msg_unpack(self, dic):
         action = str(dic["action"])
-        if action == "NCOnlineReq":
+        if action == "mmOnlineReq":
             self.sendOnlineMsg()
         elif action == "NCBehaviorReq":
             if self.isSelected:
@@ -293,7 +293,7 @@ class MyClass(GeneratedClass):
 def startHTTP():
     global http_server,K_HTTPRUNNING
     print "ssssss"
-    port = 47700
+    port = 46800
     while True:
         try:
             http_server = HTTPServer(('',port), HTTPHandler)
@@ -691,6 +691,7 @@ class MyClass(GeneratedClass):
                                 </BehaviorLayer>
                             </Timeline>
                         </Box>
+                        <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" />
                     </Diagram>
                 </BehaviorKeyframe>
             </BehaviorLayer>
